@@ -28,6 +28,12 @@ You can also provide an application name as an argument when running the script:
 ./create-express-api.sh my-app-name
 ```
 
+Or execute the script in one line with an application name:
+
+```
+curl -sSL https://raw.githubusercontent.com/cookii-king/express-api-setup/main/mac/create-express-api.sh -o create-express-api.sh && chmod +x create-express-api.sh && ./create-express-api.sh my-app-name
+```
+
 After creating the Express API project, navigate to the application folder and start your app with:
 
 ```
