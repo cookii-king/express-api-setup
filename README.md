@@ -41,4 +41,30 @@ cd my-app-name
 node app.js
 ```
 
+To run your app using PM2, install PM2 globally if you haven't already:
+
+```
+npm install pm2 -g
+```
+
+Then, start your app with PM2:
+
+```
+pm2 start app.js
+```
+
+To make sure your app starts automatically on system boot, run:
+
+```
+pm2 startup
+```
+
+Follow the instructions provided by PM2 to complete the startup configuration.
+
+Finally, save the current PM2 process list:
+
+```
+pm2 save
+```
+
 🔗 Contains affiliate links.
