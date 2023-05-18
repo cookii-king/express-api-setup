@@ -13,7 +13,7 @@ Use your SSH public key to connect to the server.
 Now, set up the Express API:
 
 ```
-curl -sSL https://raw.githubusercontent.com/cookii-king/express-api-setup/main/mac/setup-server -o setup-server.sh && chmod +x setup-server.sh && ./setup-server.sh
+curl -sSL https://raw.githubusercontent.com/cookii-king/express-api-setup/main/mac/setup-server.sh -o setup-server.sh && chmod +x setup-server.sh && ./setup-server.sh
 ```
 
 🔗 Contains affiliate links.
