@@ -25,3 +25,5 @@ echo "⏰ Adding Certbot renewal command to crontab..."
 (crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet") | sudo crontab -
 
 echo "✅ All done!"
+
+create-ssl-certificate.sh
