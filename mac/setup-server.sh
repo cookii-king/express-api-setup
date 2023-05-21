@@ -21,3 +21,5 @@ sudo npm --version
 echo -e "\n📦 Installing latest version of PM2... \n"
 # Installing latest version of PM2
 sudo npm install pm2@latest -g
+
+sudo rm -r setup-server.sh
