@@ -22,4 +22,13 @@ echo -e "\n📦 Installing latest version of PM2... \n"
 # Installing latest version of PM2
 sudo npm install pm2@latest -g
 
+echo -e "\n📦 Installing Nginx... \n"
+# Installing Nginx
+sudo apt install nginx -y
+
+echo -e "\n✅ Removing the setup script... \n"
+# Removing the setup script
+
+sudo mv /var/www/html/index.nginx-debian.html /var/www/html/index.html
+
 sudo rm -r setup-server.sh
