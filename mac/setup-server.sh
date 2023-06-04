@@ -127,6 +127,9 @@ server {
     proxy_set_header Connection 'upgrade';
     proxy_set_header Host \$host;
     proxy_cache_bypass \$http_upgrade;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout 600s;
+    proxy_read_timeout 600s;
   }
 
   location ~ \.php$ {
