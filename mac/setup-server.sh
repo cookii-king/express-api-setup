@@ -135,6 +135,24 @@ server {
 ${REDIRECT_SERVER}
 EOL
 
+# Create the database, user, and grant privileges
+sudo mysql <<EOF
+CREATE DATABASE $MYSQL_DATABASE DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';
+GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'localhost';
+GRANT SELECT, SHOW VIEW, RELOAD, REPLICATION CLIENT, LOCK TABLES, PROCESS ON *.* TO '$MYSQL_USER'@'localhost';
+FLUSH PRIVILEGES;
+EOF
+
+sudo systemctl restart nginx
+
+sudo chown -R www-data:www-data /var/www
+
+if [ ! -z "$BACKUP_SERVER" ]; then
+  # Add your backup script here
+  echo "Backup server is set up."
+fi
+
 echo -e "\n✅ Removing the setup script... \n"
 # Removing the setup script
 
