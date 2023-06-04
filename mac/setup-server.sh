@@ -69,6 +69,7 @@ server {
   server_name api.${DOMAIN_NAME};
 
   location / {
+    proxy_pass http://localhost:3000;
     try_files \$uri \$uri/ /index.php?\$args;
   }
 
