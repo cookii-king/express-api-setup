@@ -118,7 +118,7 @@ server {
 
   index index.php index.html index.htm index.nginx-debian.html;
 
-  server_name api.${DOMAIN_NAME};
+  server_name ${DOMAIN_NAME};
 
   location / {
     proxy_pass http://localhost:3000;
