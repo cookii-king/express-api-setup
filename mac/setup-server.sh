@@ -122,7 +122,11 @@ server {
 
   location / {
     proxy_pass http://localhost:3000;
-    try_files \$uri \$uri/ /index.php?\$args;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade \$http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host \$host;
+    proxy_cache_bypass \$http_upgrade;
   }
 
   location ~ \.php$ {
@@ -134,6 +138,7 @@ server {
 
 ${REDIRECT_SERVER}
 EOL
+
 
 # Create the database, user, and grant privileges
 sudo mysql <<EOF
