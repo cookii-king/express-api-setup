@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Set default values
+BACKUP_SERVER=""
+MYSQL_DATABASE=""
+MYSQL_USER=""
+MYSQL_PASSWORD=""
 DOMAIN_NAME=""
 
 # Ask for the domain name first
@@ -17,6 +22,46 @@ if [ ! -z "$DOMAIN_NAME" ]; then
     MYSQL_USER="$MYSQL_DATABASE-user"
   fi
 fi
+
+# Check if command line arguments are provided for the other values
+if [ ! -z "$2" ]; then
+  MYSQL_DATABASE="$2"
+else
+  if [ -z "$MYSQL_DATABASE" ]; then
+    read -p "Enter database name: " MYSQL_DATABASE
+  fi
+fi
+
+if [ ! -z "$3" ]; then
+  MYSQL_USER="$3"
+else
+  if [ -z "$MYSQL_USER" ]; then
+    read -p "Enter database user: " MYSQL_USER
+  fi
+fi
+
+if [ ! -z "$4" ]; then
+  MYSQL_PASSWORD="$4"
+else
+  read -p "Do you want to use your own password or generate a new one? (own/generate): " PASSWORD_CHOICE
+  if [ "$PASSWORD_CHOICE" == "own" ]; then
+    read -sp "Enter database password: " MYSQL_PASSWORD
+    echo ""
+  else
+    # Generate a random password
+    MYSQL_PASSWORD=$(LC_ALL=C </dev/urandom tr -dc 'a-zA-Z0-9!@#$%^&*()-_=+' | fold -w 16 | head -n 1)
+    echo "Generated MySQL password: $MYSQL_PASSWORD"
+  fi
+fi
+
+if [ ! -z "$5" ]; then
+  BACKUP_SERVER="$5"
+else
+  read -p "Enter backup server username (leave empty if not using a backup server): " BACKUP_SERVER
+fi
+
+# Get the latest PHP version number
+PHP_VERSION=$(sudo apt-cache search php | grep -oP 'php\d\.\d' | sort -V | tail -n 1)
 
 echo -e "\n📦 Updating package list... \n"
 # Updating package list
@@ -43,6 +88,13 @@ sudo npm install pm2@latest -g
 echo -e "\n📦 Installing Nginx... \n"
 # Installing Nginx
 sudo apt install nginx -y
+sudo apt install software-properties-common -y
+sudo apt install mysql-server -y
+sudo apt install mysql-client -y
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt install "${PHP_VERSION}" -y
+sudo apt install "${PHP_VERSION}-fpm" -y
+sudo apt install "${PHP_VERSION}-mysql" -y
 
 # Check if the domain name is provided
 if [ -z "$DOMAIN_NAME" ]; then
@@ -89,6 +141,8 @@ echo -e "\n✅ Removing the setup script... \n"
 sudo mv /var/www/html/index.nginx-debian.html /var/www/html/index.html
 
 curl -sSL https://raw.githubusercontent.com/cookii-king/express-api-setup/main/mac/create-ssl-certificate.sh -o create-ssl-certificate.sh && chmod +x create-ssl-certificate.sh && ./create-ssl-certificate.sh
+
+curl -sSL https://raw.githubusercontent.com/cookii-king/express-api-setup/main/mac/create-express-api.sh -o create-express-api.sh && chmod +x create-express-api.sh && ./create-express-api.sh my-app-name
 
 echo "Go to http://${DOMAIN_NAME:-$(curl ifconfig.me)} to view your Express Api. 😁"
 
