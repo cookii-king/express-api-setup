@@ -114,7 +114,7 @@ server {
   listen 80 default_server;
   listen [::]:80 default_server;
 
-  root /var/www/html/wordpress;
+  root /var/www/html;
 
   index index.php index.html index.htm index.nginx-debian.html;
 
@@ -160,7 +160,7 @@ sudo mv /var/www/html/index.nginx-debian.html /var/www/html/index.html
 
 curl -sSL https://raw.githubusercontent.com/cookii-king/express-api-setup/main/mac/create-ssl-certificate.sh -o create-ssl-certificate.sh && chmod +x create-ssl-certificate.sh && ./create-ssl-certificate.sh
 
-curl -sSL https://raw.githubusercontent.com/cookii-king/express-api-setup/main/mac/create-express-api.sh -o create-express-api.sh && chmod +x create-express-api.sh && ./create-express-api.sh my-app-name
+curl -sSL https://raw.githubusercontent.com/cookii-king/express-api-setup/main/mac/create-express-api.sh -o create-express-api.sh && chmod +x create-express-api.sh && ./create-express-api.sh "$DOMAIN_NAME"
 
 echo "Go to http://${DOMAIN_NAME:-$(curl ifconfig.me)} to view your Express Api. 😁"
 
