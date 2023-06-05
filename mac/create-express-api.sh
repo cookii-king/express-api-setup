@@ -20,11 +20,18 @@ npm init -y
 # Install Express.js
 npm install express
 
+npm install cors
+
 # Add some basic code to your application using a Here Document
 cat << EOF > app.js
 const express = require('express');
+const { exec } = require('child_process');
+const cors = require('cors'); // Import the cors package
 const app = express();
 const port = 3000;
+
+app.use(express.json());
+app.use(cors()); // Enable CORS for all routes
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
