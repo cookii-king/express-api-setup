@@ -81,3 +81,4 @@ kill_port_80
 sudo systemctl restart nginx
 sudo systemctl status nginx
 sudo certbot --nginx
+sudo rm -r reset-nginx-solution.sh
