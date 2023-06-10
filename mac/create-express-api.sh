@@ -44,3 +44,5 @@ EOF
 
 echo "Express API named '$app_name' has been created and is ready to use."
 echo "Navigate to the application folder and start your app with 'node app.js'"
+
+sudo rm -r create-express-api.sh
