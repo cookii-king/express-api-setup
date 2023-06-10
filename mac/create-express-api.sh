@@ -26,7 +26,8 @@ npm install cors
 cat << EOF > app.js
 const express = require('express');
 const { exec } = require('child_process');
-const cors = require('cors'); // Import the cors package
+const cors = require('cors');
+const path = require("path");
 const app = express();
 const port = 3000;
 
